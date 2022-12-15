@@ -558,7 +558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641287232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2470,6 +2470,7 @@ MonoBehaviour:
   _crosshair: {fileID: 2015105387}
   _aimCamera: {fileID: 1074386556}
   muzzle: {fileID: 641287232}
+  muzzleHeight: 0
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -2750,15 +2751,13 @@ MonoBehaviour:
   weaponID: 0
   weaponName: Kunai
   weaponIndicator: {fileID: 821050774}
-  maxCollierAmount: 0
-  existingTime: 3
   damageFactor: 1
+  existingTime: 3
   _enmeySpawner: {fileID: 728826141}
   _projectile: {fileID: 9095120818189090134, guid: 764fce0d714e98043808912a6191cc14,
     type: 3}
   _speed: 50
-  fireDuration: 0.5
-  muzzleHeight: 1.5
+  fireDuration: 1
 --- !u!4 &1915568527
 Transform:
   m_ObjectHideFlags: 0
@@ -2983,6 +2982,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015105385}
   m_CullTransparentMesh: 1
+--- !u!1 &2135908721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2135908722}
+  - component: {fileID: 2135908723}
+  - component: {fileID: 2135908724}
+  m_Layer: 0
+  m_Name: Weapon Disc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2135908722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135908721}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1762682261}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2135908723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135908721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6086da8c22bea5e4fa1cd85c9c2c4b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 1762682266}
+  weaponID: 2
+  weaponName: Disc
+  weaponIndicator: {fileID: 0}
+  damageFactor: 1
+  collider: {fileID: 8037051366946749420, guid: 4dd62a387b42ec043924108f69d3833e,
+    type: 3}
+  _colliders: []
+  _angularSpeed: 2.5
+  _colliderCount: 4
+  _radius: 3
+--- !u!54 &2135908724
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135908721}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1001 &441655699789929847
 PrefabInstance:
   m_ObjectHideFlags: 0
