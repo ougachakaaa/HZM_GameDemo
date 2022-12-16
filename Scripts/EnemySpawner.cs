@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using System.Threading;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,6 +11,15 @@ public class EnemySpawner : MonoBehaviour
     public float innerSpawnRange = 10;
     public float outterSpawnRange = 20;
     public StarterAssetsInputs _input;
+
+    //enemy spawn rate
+
+    bool isSpawningEnemy;
+    [SerializeField] int spawnRate =1;
+    int enemySpawnThisSecond;
+    float enemySpawnTimer;
+
+
 
     public List<Transform> enmeyList = new List<Transform>();
     public int currentEnemyCount;
@@ -25,22 +35,47 @@ public class EnemySpawner : MonoBehaviour
         Actions.OnEnemyKilled -= UpdateEnemyList;
     }
 
-
+    private void Start()
+    {
+        isSpawningEnemy = false;
+    }
 
     void Update()
     {
         if (_input.spawn)
         {
-            Vector3 spawnPos = GetSpawnPos(spawnCenter.position);
-            GameObject thisEnmey = Instantiate(enemyPrefabs, spawnPos, Quaternion.identity, transform);
-            enmeyList.Add(thisEnmey.transform);
+            isSpawningEnemy = !isSpawningEnemy;
+            Debug.Log("Is spawning enmey = " + isSpawningEnemy.ToString());
+            enemySpawnThisSecond = 0;
+            enemySpawnTimer = 0;
             _input.spawn = false;
-            UpdateEnemyList();
+        }
+        if (isSpawningEnemy)
+        {
+        //spawn 1 enemy every frame
+            if(enemySpawnThisSecond < spawnRate)
+            {
+                SpawnEnemy();
+                enemySpawnThisSecond++;
+            }
+        //reset enmeySpawnThisSecond every second
+            enemySpawnTimer += Time.deltaTime;
+            if (enemySpawnTimer > 1f)
+            {
+                enemySpawnThisSecond = 0;
+                enemySpawnTimer = 0;
+            }
         }
 
 
     }
-
+    public void SpawnEnemy()
+    {
+        Vector3 spawnPos = GetSpawnPos(spawnCenter.position);
+        GameObject thisEnmey = Instantiate(enemyPrefabs, spawnPos, Quaternion.identity, transform);
+        enmeyList.Add(thisEnmey.transform);
+        UpdateEnemyList();
+    }
     public Vector3 GetSpawnPos(Vector3 _SpawnCenter)
     {
         Vector3 spawnPos = new Vector3(0,0,0);

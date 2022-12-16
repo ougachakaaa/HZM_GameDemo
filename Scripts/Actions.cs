@@ -7,4 +7,5 @@ public static class Actions
 {
 
     public static Action OnEnemyKilled;
+    public static Action OnTakeDamge;
 }

@@ -12,24 +12,10 @@ public class WeaponWithCollider : MonoBehaviour
     public GameObject weaponIndicator;
     //damage
     public float damageFactor;
-    public float CharacterAttackPoint
-    {
-        get
-        {
-            if (_controller != null)
-                return _controller.attackPoint;
-            else
-            {
-                Debug.Log("can't find controller, attack point set to default : 100");
-                return 100;
-            }
-
-        }
-    }
 
     //fire
     [Header("Collider")]
-    public WeaponCollider collider;
+    public WeaponCollider weaponCollider;
     public List<WeaponCollider> _colliders = new List<WeaponCollider>();
     public float _angularSpeed;
     [SerializeField] int _colliderCount;
@@ -76,13 +62,13 @@ public class WeaponWithCollider : MonoBehaviour
             }
             _colliders.Clear();
         }
-        collider._weapon = this;
+        weaponCollider._weapon = this;
         for(int i = 1; i <= count; i++)
         {
             Debug.Log("updateCollider here");
             float angularInterval = Mathf.PI*2 / _colliderCount;
             Vector3 _spawnPos = new Vector3(_radius * Mathf.Cos(angularInterval*i),muzzleHeight, _radius * Mathf.Sin(angularInterval * i))+_controller.transform.position;
-            _colliders.Add(Instantiate<WeaponCollider>(collider, _spawnPos, Quaternion.identity, transform));
+            _colliders.Add(Instantiate<WeaponCollider>(weaponCollider, _spawnPos, Quaternion.identity, transform));
             
             
         }

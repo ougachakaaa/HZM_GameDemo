@@ -6,7 +6,11 @@ public class LiveSystem : MonoBehaviour
 {
     public EnemySpawner _enemySpawner;
 
+    //actions
+
     //Hp system
+    public EnemyController _enemyController;
+
     public float maxHp;
     public float _currentHp;
     public float CurrentHp
@@ -18,11 +22,11 @@ public class LiveSystem : MonoBehaviour
     //damage
     public float defensePoint;
 
-
     private void Start()
     {
         CurrentHp = maxHp;
         _enemySpawner = FindObjectOfType<EnemySpawner>();
+        _enemyController = GetComponent<EnemyController>();
     }
     public void Heal(float percentage)
     {
@@ -34,6 +38,7 @@ public class LiveSystem : MonoBehaviour
         CurrentHp -= damagePoint-defensePoint;
         if (CurrentHp <= 0)
             Dead();
+        _enemyController.BeingHit();
     }
 
     void Dead()

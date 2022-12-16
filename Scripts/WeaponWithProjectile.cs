@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Weapon : MonoBehaviour
+public class WeaponWithProjectile : MonoBehaviour
 {
     public MowingController _controller;
 
@@ -11,55 +11,40 @@ public class Weapon : MonoBehaviour
     public int weaponID;
     public string weaponName;
     public GameObject weaponIndicator;
+
     //damage
     public float damageFactor;
-    public float CharacterAttackPoint
-    {
-        get 
-        {
-            if (_controller != null)
-                return _controller.attackPoint;
-            else
-            {
-                Debug.Log("can't find controller, attack point set to default : 100");
-                return 100;
-            }
-
-        } 
-    }
-
     public float existingTime;
-
-
 
     //locate enemy
     [SerializeField]EnemySpawner _enmeySpawner;
     Vector3 targetPos;
     Vector3 targetDir;
 
-
     //fire
     [Header("Projectile")]
     [SerializeField] Projectile _projectile;
     [SerializeField] float _speed;
-    [SerializeField] float fireDuration =0.5f;
+    [SerializeField] float projectileDuration =0.08f;
+    [SerializeField] int projectilePerRound =3;
+    [SerializeField] float RoundDuration =1f;
+    public int projectileMaxCollideTime =3;
     float _muzzleHeight;
-    float fireTimer = 0f;
 
     private void Awake()
     {
         _muzzleHeight = _controller.muzzleHeight;
         gameObject.name = weaponName;
+        if(_projectile != null)
+        {
+            StartCoroutine(FireProjectile());
+        }
     }
     private void Update()
     {
         if(weaponIndicator != null)
         {
             weaponIndicator.transform.position = GetMuzzlePos();
-        }
-        if(_projectile != null)
-        {
-            FireCheck();
         }
         else
         {
@@ -82,18 +67,21 @@ public class Weapon : MonoBehaviour
         }
         return closetEnemyPos;
     }
-    public void FireCheck()
+    public IEnumerator FireProjectile()
     {
-        fireTimer += Time.deltaTime;
-        if (_enmeySpawner.enmeyList != null && _enmeySpawner.enmeyList.Count > 0 && fireTimer >= fireDuration)
+        while (true)
         {
-            //shoot
-            Instantiate(_projectile, GetMuzzlePos(), Quaternion.LookRotation(targetPos-transform.position));
-            _projectile._weapon = this;
-            
-            //reset fireTimer
-            fireTimer = 0f;
+            int projectileCountThisRound = 0;
+            while(projectileCountThisRound<projectilePerRound && _enmeySpawner.enmeyList != null && _enmeySpawner.enmeyList.Count > 0)
+            {
+                Instantiate(_projectile, GetMuzzlePos(), Quaternion.LookRotation(targetPos - transform.position));
+                _projectile._weapon = this;
+                projectileCountThisRound++;
+                yield return new WaitForSeconds(projectileDuration);
+            }
+            yield return new WaitForSeconds(RoundDuration);
         }
+
     }
 
     public Vector3 CalculateProjectileVelocity(string _weaponName)

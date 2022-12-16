@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public Weapon _weapon;
-    float _existingTime;
+    public WeaponWithProjectile _weapon;
 
+
+    float _maxCollideCount;
+    float _currentCollideCount;
+    float _existingTime;
     float _damage;
     Rigidbody projectileRB;
 
@@ -16,6 +19,9 @@ public class Projectile : MonoBehaviour
 
     private void Awake()
     {
+        _currentCollideCount = 0;
+        _maxCollideCount = _weapon.projectileMaxCollideTime;
+        _existingTime = _weapon.existingTime;
         projectileRB = GetComponent<Rigidbody>();
         UpdateProjectile(_weapon);
         if(_existingTime > 2f)
@@ -27,26 +33,35 @@ public class Projectile : MonoBehaviour
 
     // Update is called once per frame
 
-    public void UpdateProjectile(Weapon _weapon)
+    public void UpdateProjectile(WeaponWithProjectile _weapon)
     {
-        _existingTime = _weapon.existingTime;
-        _damage = _weapon.damageFactor * _weapon.CharacterAttackPoint;
+        _damage = _weapon.damageFactor * _weapon._controller.attackPoint;
     }
-    
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.gameObject.GetComponent<LiveSystem>() != null)
+        if(other.gameObject.GetComponent<LiveSystem>() != null)
         {
-            LiveSystem _targetLiveSystem = collision.gameObject.GetComponent<LiveSystem>();
+            PlayHitVFX(transform.position);
+            LiveSystem _targetLiveSystem = other.GetComponent<LiveSystem>();
             _targetLiveSystem.TakeDamage(_damage);
+            _currentCollideCount++;
+            if(_currentCollideCount >= _maxCollideCount)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
+            PlayHitVFX(transform.position);
+            Destroy(gameObject);
         }
 
-        GameObject _hit = Instantiate(hitVFX, transform.position, Quaternion.identity);
-        Destroy(_hit,0.2f);
-        Destroy(gameObject);
+    }
+    private void PlayHitVFX(Vector3 _hitPos)
+    {
+        GameObject _hit = Instantiate(hitVFX, _hitPos, Quaternion.identity);
+        Destroy(_hit, 0.2f);
+
     }
 }
