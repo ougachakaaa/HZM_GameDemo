@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
 
     private void Awake()
     {
-        _weapon = GameObject.FindObjectOfType<Weapon>();
         projectileRB = GetComponent<Rigidbody>();
         UpdateProjectile(_weapon);
         if(_existingTime > 2f)

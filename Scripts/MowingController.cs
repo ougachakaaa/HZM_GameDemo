@@ -7,13 +7,14 @@ using StarterAssets;
 public class MowingController : MonoBehaviour
 {
     [Header("Input")]
-    [SerializeField] StarterAssetsInputs _input;
+    public StarterAssetsInputs _input;
 
     //aiming
     [Header("Aim")]
     [SerializeField] Image _crosshair;
     [SerializeField] CinemachineVirtualCamera _aimCamera;
     [SerializeField] GameObject muzzle;
+    public float muzzleHeight;
     //[SerializeField] GameObject target;
     [SerializeField] LayerMask aimLayerMask = new LayerMask();
     [SerializeField] [Range(0,0.1f)]float rotateSharpness = 0.1f;
@@ -32,6 +33,7 @@ public class MowingController : MonoBehaviour
 
     private void Awake()
     {
+        muzzleHeight = muzzle.transform.position.y;
         WeaponSet = GameObject.Find("WeaponSet").transform;
     }
 

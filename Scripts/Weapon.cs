@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 [System.Serializable]
 public class Weapon : MonoBehaviour
@@ -12,10 +11,6 @@ public class Weapon : MonoBehaviour
     public int weaponID;
     public string weaponName;
     public GameObject weaponIndicator;
-
-    public int maxCollierAmount;
-    public float existingTime;
-
     //damage
     public float damageFactor;
     public float CharacterAttackPoint
@@ -33,22 +28,27 @@ public class Weapon : MonoBehaviour
         } 
     }
 
+    public float existingTime;
+
+
 
     //locate enemy
     [SerializeField]EnemySpawner _enmeySpawner;
     Vector3 targetPos;
     Vector3 targetDir;
 
+
     //fire
     [Header("Projectile")]
     [SerializeField] Projectile _projectile;
     [SerializeField] float _speed;
     [SerializeField] float fireDuration =0.5f;
-    [SerializeField] float muzzleHeight = 1.5f;
+    float _muzzleHeight;
     float fireTimer = 0f;
 
     private void Awake()
     {
+        _muzzleHeight = _controller.muzzleHeight;
         gameObject.name = weaponName;
     }
     private void Update()
@@ -89,6 +89,8 @@ public class Weapon : MonoBehaviour
         {
             //shoot
             Instantiate(_projectile, GetMuzzlePos(), Quaternion.LookRotation(targetPos-transform.position));
+            _projectile._weapon = this;
+            
             //reset fireTimer
             fireTimer = 0f;
         }
@@ -119,7 +121,8 @@ public class Weapon : MonoBehaviour
     public Vector3 GetMuzzlePos()
     {
         Vector3 _muzzlePos = CalculateProjectileVelocity(weaponName).normalized/2 + _controller.transform.position;
-        _muzzlePos.y = muzzleHeight+transform.position.y;
+        _muzzlePos.y = _muzzleHeight+transform.position.y;
         return _muzzlePos;
     }
 }
+
