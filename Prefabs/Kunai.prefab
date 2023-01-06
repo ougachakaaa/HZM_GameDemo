@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3442601136088131226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3442601136088131225}
+  - component: {fileID: 3442601136088131224}
+  m_Layer: 8
+  m_Name: Kunai
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3442601136088131225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442601136088131226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3442601136088131224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442601136088131226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd7ff8d1e7d3584caadc099111ef350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: abc
+  weaponID: 0
+  damageFactor: 1
+  damage: 0
+  projectilePrefabs: {fileID: 6394646248244751695, guid: 764fce0d714e98043808912a6191cc14,
+    type: 3}
+  speed: 0.5
+  existingTime: 3
+  maxCollideCount: 1
+  trajectory: 0
+  projectilePerRound: 3
+  fireDuration: 0.1
+  roundDuration: 1
+  muzzleHeight: 1.5
+  _spawner: {fileID: 0}
+  _player: {fileID: 0}
+  muzzleIndicator: {fileID: 0}
+  projectilePool: {fileID: 0}
+  debugProject: {fileID: 0}
+  debugTarget: {fileID: 0}

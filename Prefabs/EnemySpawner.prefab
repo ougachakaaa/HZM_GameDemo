@@ -50,5 +50,6 @@ MonoBehaviour:
   innerSpawnRange: 10
   outterSpawnRange: 20
   _input: {fileID: 0}
+  spawnRate: 20
   enmeyList: []
   currentEnemyCount: 0

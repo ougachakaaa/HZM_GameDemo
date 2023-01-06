@@ -11,6 +11,7 @@ namespace StarterAssets
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
+		public bool pause;
 		public bool sprint;
 		public bool aim;
 		public bool shoot;
@@ -41,6 +42,15 @@ namespace StarterAssets
 		{
 			JumpInput(value.isPressed);
 		}
+
+		public void OnPause(InputValue value)
+		{
+			//waPauseInput(value.isPressed);
+            if (value.isPressed)
+            {
+                PauseInput(!pause);
+            }
+        }
 		public void OnAim(InputValue value)
 		{
 			AimInput(value.isPressed);
@@ -74,6 +84,10 @@ namespace StarterAssets
 		public void JumpInput(bool newJumpState)
 		{
 			jump = newJumpState;
+		}
+		public void PauseInput(bool newPauseState)
+		{
+			pause = newPauseState;
 		}
 		public void AimInput(bool newAimState)
 		{
