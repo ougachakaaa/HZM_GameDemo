@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +7,11 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    public float gametime;
     public Text timerText;
-    public TextMeshPro timerTextMP;
-    public float startTime;
-    public float currentTime;
+
+    float startTime;
+    float currentTime;
     public bool isTimerRunning;
     public WaitForSeconds oneSecond;
 
@@ -34,20 +36,19 @@ public class Timer : MonoBehaviour
         {
             if (isTimerRunning)
             {
-                timerText.text = FormatTime(currentTime - startTime);
+                gametime = currentTime - startTime;
+                timerText.text = FormatTime();
                 currentTime++;
             }
             yield return oneSecond;
         }
     }
-    public string FormatTime(float seconds)
+    public string FormatTime()
     {
         int minutes;
-        minutes = Mathf.FloorToInt(seconds/60f);
-        char? zeroM = minutes < 10 ? '0' : null;
-        seconds = seconds % 60;
-        char? zeroS = seconds < 10 ? '0' : null;
-        string formatTime = zeroM + minutes.ToString() + ":" + zeroS + seconds.ToString();
+        minutes = Mathf.FloorToInt(gametime/60f);
+        gametime = gametime % 60;
+        string formatTime = ((int)minutes).ToString("D2") + ":" + ((int)gametime).ToString("D2");
         return formatTime;
 
     }

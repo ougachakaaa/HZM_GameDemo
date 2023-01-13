@@ -65,7 +65,7 @@ public class PictureSwitcher : MonoBehaviour
             }
         });
         selectButton.onClick.AddListener(()=> {
-            sceneController.LoadLevel("Playground");
+            sceneController.LoadLevel(SceneList.Playground);
         });
         #endregion
         //init

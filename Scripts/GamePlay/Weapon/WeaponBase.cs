@@ -34,8 +34,9 @@ public class WeaponBase:MonoBehaviour
     public float muzzleHeight;
     Vector3 muzzlePos;
     Vector3 targetPos;
-    public EnemySpawner _spawner;
-    public MowingController _player;
+    EnemySpawner _spawner;
+    public MowingController _playerMowingController;
+    public PlayerLivingEntity _playerLivingEntity;
     public Transform muzzleIndicator;
     public Transform debugProject;
     public Transform debugTarget;
@@ -43,6 +44,9 @@ public class WeaponBase:MonoBehaviour
 
     private void Start()
     {
+        _spawner = FindObjectOfType<EnemySpawner>();
+        _playerLivingEntity = FindObjectOfType<PlayerLivingEntity>();
+        _playerMowingController = FindObjectOfType<MowingController>();
         projectilePool = GameObject.Find("ProjectilePool").transform;
         StartCoroutine(Fire());
     }
@@ -52,18 +56,19 @@ public class WeaponBase:MonoBehaviour
     }
     public IEnumerator Fire()
     {
-        while (true)
+        while (!_playerLivingEntity.isDead)
         {
+            yield return null;
             for (int i = 0; i < projectilePerRound; i++)
             {
                 targetPos = _spawner.FindClosestEnemy();
                 muzzlePos = GetMuzzleOffset(targetPos) + transform.position;
                 muzzleIndicator.position = GetMuzzleOffset(targetPos) + transform.position;
 
-                if (_spawner.enmeyList.Count > 0)
+                if (_spawner.activeEnemyList.Count > 0)
                 {
-                    damage = damageFactor * _player.attackPoint;
-                    Projectile thisProjectile = Instantiate<Projectile>(projectilePrefabs,transform.position+new Vector3(0, muzzleHeight,0) ,Quaternion.LookRotation(targetPos-_player.transform.position),projectilePool);
+                    damage = damageFactor * _playerLivingEntity.attackPoint;
+                    Projectile thisProjectile = Instantiate<Projectile>(projectilePrefabs,transform.position+new Vector3(0, muzzleHeight,0) ,Quaternion.LookRotation(targetPos-_playerMowingController.transform.position),projectilePool);
                     thisProjectile.InitializeProjectile(this);
 
                 }

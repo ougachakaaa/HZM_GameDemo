@@ -4,44 +4,80 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public enum SceneList
+{
+    Playground,
+    MainMenu,
+}
+public enum SceneTransitionType
+{
+    Cover,
+    Fade,
+}
+
 public class SceneController : MonoBehaviour
 {
-    public GameObject sceneTransition;
-    public GameObject cover;
-    public Animator transitionAnimator;
-    public Transform canvasTransform;
+    CanvasGroup canvasGroup;
+    Image image;
 
     public float transitionTime = 1f;
+    [SerializeField] float transitionTimeOffset = 0.1f;
+    public float transitionSmoothness = 50;
 
-    private void Awake()
+    private void Start()
     {
-        canvasTransform = gameObject.transform;
-        cover = Instantiate(sceneTransition, canvasTransform);
-        transitionAnimator = cover.GetComponent<Animator>();
+        image = GetComponent<Image>();
+        canvasGroup = GetComponent<CanvasGroup>();
+
+        StartCoroutine(SceneTransition(SceneTransitionType.Fade));
     }
 
-    IEnumerator LevelTransition(string sceneName)
+    public void LoadLevel(SceneList scene)
     {
-
-        transitionAnimator.Play("UnloadScene");
         Time.timeScale = 1;
-        switch (sceneName)
+        StartCoroutine(LevelTransition(scene));
+    }
+    IEnumerator LevelTransition(SceneList scene)
+    {
+        StartCoroutine(SceneTransition(SceneTransitionType.Cover));
+        switch (scene)
         {
-            case "Playground" :
+            case SceneList.Playground :
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
-            case "MainMenu" :
+            case SceneList.MainMenu :
                 Cursor.lockState = CursorLockMode.None;
                 break;
             default:
                 break;
-
         }
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(sceneName);
+        yield return new WaitForSeconds(transitionTime+transitionTimeOffset);
+        SceneManager.LoadScene(scene.ToString());
     }
-    public void LoadLevel(string sceneName)
+
+    IEnumerator SceneTransition(SceneTransitionType type)
     {
-        StartCoroutine(LevelTransition(sceneName));
+        float startAlpha;
+        float EndAlpha;
+        switch (type)
+        {
+            case SceneTransitionType.Cover:
+                startAlpha = 0;
+                EndAlpha = 1;
+                break;
+            case SceneTransitionType.Fade:
+            default:
+                startAlpha = 1;
+                EndAlpha = 0;
+                break;
+        }
+
+        float duration = transitionTime / transitionSmoothness;
+        WaitForSeconds wait = new WaitForSeconds(duration);
+        for (int i = 0; i <= transitionSmoothness; i++)
+        {
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, EndAlpha, 1 / transitionSmoothness * i);
+            yield return wait;
+        }
     }
 }

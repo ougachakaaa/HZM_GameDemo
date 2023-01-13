@@ -26,22 +26,20 @@ public class Projectile : MonoBehaviour
         Collider[] initialColliders = Physics.OverlapSphere(transform.position,0.5f,projectileCollisionMask,QueryTriggerInteraction.Collide);
         if (initialColliders.Length > 0)
         {
-            Debug.Log(initialColliders.Length);
             OnHitObject(initialColliders[0]);
         }
-        
     }
-    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position, 1f);
-    }
+    }*/
     private void Update()
     {
         transform.Translate(transform.forward * _speed * Time.deltaTime,Space.World);
         Debug.DrawRay(transform.position,transform.forward);
         float moveDistance = _speed * Time.deltaTime;
-        HitCheck(moveDistance/2 + transform.localScale.z / 2);
+        HitCheck(moveDistance/2 + transform.localScale.z);
     }
 
     public void InitializeProjectile(WeaponBase _weapon)
@@ -62,12 +60,13 @@ public class Projectile : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, checkDistance, projectileCollisionMask, QueryTriggerInteraction.Collide))
         {
+            Debug.Log(hit.collider);
             OnHitObject(hit.collider);
         }
     }
     public void OnHitObject(Collider c)
     {
-        IDamagable damagableObject = c.gameObject.GetComponent<IDamagable>();
+        IDamagable damagableObject = c.GetComponent<IDamagable>();
         PlayHitVFX(transform.position);
         if (damagableObject != null)
         {
