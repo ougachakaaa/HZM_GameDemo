@@ -17,18 +17,29 @@ public enum SceneTransitionType
 
 public class SceneController : MonoBehaviour
 {
+    public Transform panelsHolderTransform;
+    public static Transform backGroundBlocker;
+
     CanvasGroup canvasGroup;
     Image image;
+    public GameObject backGroundPrefab;
+    GameObject backGround;
 
     public float transitionTime = 1f;
     [SerializeField] float transitionTimeOffset = 0.1f;
     public float transitionSmoothness = 50;
 
+
     private void Start()
     {
         image = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
-
+        if (SceneManager.sceneCount == 0)
+        {
+            panelsHolderTransform = GameObject.Find("Panels").transform;
+            backGroundBlocker = GameObject.Find("BackgroundBlocker").transform;
+            backGroundBlocker.gameObject.SetActive(false);
+        }
         StartCoroutine(SceneTransition(SceneTransitionType.Fade));
     }
 
@@ -46,6 +57,8 @@ public class SceneController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
             case SceneList.MainMenu :
+                backGround = Instantiate(backGroundPrefab, panelsHolderTransform);
+                backGround.transform.SetAsFirstSibling();
                 Cursor.lockState = CursorLockMode.None;
                 break;
             default:

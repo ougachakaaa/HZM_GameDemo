@@ -148,6 +148,8 @@ MonoBehaviour:
   hitBackwardForce: 0
   HitEffectDuration: 0.2
   hitEffectSmoothness: 50
+  deathEffect: {fileID: 4721307035412425598, guid: 7ce1d0c163b680b4d98766dc088649ee,
+    type: 3}
 --- !u!195 &8427222546839067636
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -167,7 +169,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.15
+  m_BaseOffset: 0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
 --- !u!136 &3156240383432674273

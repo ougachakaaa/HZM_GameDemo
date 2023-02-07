@@ -14,6 +14,7 @@ public class EnemyController : LivingEntity
 {
     //state
     EnemyState currentState;
+
     //Player transform
     public Transform playerTransform;
     PlayerLivingEntity _playerLivingEntity;
@@ -42,7 +43,7 @@ public class EnemyController : LivingEntity
     float enemyCollisionRadius;
     bool hasTriggerDamage;
 
-
+    
     [Header("Take Damage")]
     Material thisMaterial;
     Color originalColor;
@@ -55,6 +56,9 @@ public class EnemyController : LivingEntity
 
     //spawn
     EnemySpawner _spawner;
+
+    //death effetc
+    public ParticleSystem deathEffect;
     
     protected override void Start()
     {
@@ -201,6 +205,8 @@ public class EnemyController : LivingEntity
     public override void Die()
     {
         base.Die();
+        ParticleSystem effect = Instantiate(deathEffect, transform.position + Vector3.up,Quaternion.LookRotation(-transform.forward));
+        Destroy(effect.gameObject,0.5f);
         Actions.OnEnemyDie.Invoke(this);
         //StartCoroutine(DieEffect(0.5f));
 

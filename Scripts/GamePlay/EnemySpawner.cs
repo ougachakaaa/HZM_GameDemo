@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.Pool;
 using StarterAssets;
 
+enum SpawnType
+{
+    CreateNew,
+    GetFromPool,
+}
 public class EnemySpawner : MonoBehaviour
 {
     public Transform PlayerTransform;
     public StarterAssetsInputs _input;
-    PlayerLivingEntity _playerLivingEntity;
+    public MapGenerator mapGenerator;
+    PlayerLivingEntity playerLivingEntity;
 
     [SerializeField] List<GameObject> enemyPrefabs;
 
@@ -17,7 +23,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Parameters")]
     public float innerSpawnRange = 15;
     public float outterSpawnRange = 30;
-    [SerializeField] float spawnRate =1;
+    [SerializeField] float spawnRate =1f;
+    [SerializeField] float spawnDelay =1f;
     [SerializeField] LayerMask spawnCheckLayer;
     bool isSpawningEnemy;
     float enemySpawnTimer;
@@ -54,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-        _playerLivingEntity = PlayerTransform.GetComponent<PlayerLivingEntity>();
+        playerLivingEntity = PlayerTransform.GetComponent<PlayerLivingEntity>();
 
         isSpawningEnemy = false;
 
@@ -76,38 +83,44 @@ public class EnemySpawner : MonoBehaviour
             _input.spawn = false;
         }
 
-        if (isSpawningEnemy && _playerLivingEntity.isDead == false)
+        if (isSpawningEnemy && playerLivingEntity.isDead == false)
         {
             if (enemySpawnTimer>1/spawnRate)
             {
-
-                enemyPool.Get();
                 enemySpawnTimer = 0;
+                StartCoroutine(mapGenerator.TileEffect(mapGenerator.currentMap.GetRandomOpenTileCoord()));
+                enemyPool.Get();
             }
             enemySpawnTimer += Time.deltaTime;
         }
 
     }
     //spawn
-    EnemyController SpawnEnemy()
+    EnemyController SpawnEnemy(Vector3 spawnPos)
     {
-        Vector3 spawnPos = GetSpawnPos(PlayerTransform.position);
         EnemyController thisEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, transform);
         return thisEnemy;
     }
-    Vector3 GetSpawnPos(Vector3 _SpawnCenter)
+
+/*    Vector3 GetSpawnPos(Vector3 _spawnCenter)
     {
         Vector3 spawnPos = new Vector3(0,0,0);
         RaycastHit hit;
 
         Vector2 a = Random.insideUnitCircle;
         Vector2 _randomPointInCircle = GetRandomPointInCircle(innerSpawnRange, outterSpawnRange);
-        float xPos = _SpawnCenter.x + _randomPointInCircle.x;
-        float zPos = _SpawnCenter.z + _randomPointInCircle.y;
+        float xPos = _spawnCenter.x + _randomPointInCircle.x;
+        float zPos = _spawnCenter.z + _randomPointInCircle.y;
         Ray _ray = new Ray(new Vector3(xPos,100,zPos),Vector3.down);
         if (Physics.Raycast(_ray, out hit, 200f,spawnCheckLayer))
             spawnPos = hit.point;
         return spawnPos;
+    }*/
+
+    
+    Vector3 GetSpawnPos(Coord spawnCoord)
+    {
+        return mapGenerator.currentMap.CoordToPosition(spawnCoord);
     }
     Vector2 GetRandomPointInCircle(float _innerRange,float _outterRange)
     {
@@ -156,8 +169,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnGetPoolItem(EnemyController obj)
     {
-        obj.transform.position = GetSpawnPos(PlayerTransform.position);
 
+
+        Vector3 spawnPos = GetSpawnPos(mapGenerator.currentMap.GetRandomOpenTileCoord()) * mapGenerator.mapUnitSize;
+        obj.transform.position = spawnPos;
         obj.gameObject.SetActive(true);
         obj.InitEnemyController();
 
@@ -166,6 +181,8 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyController OnCreatePoolItem()
     {
-        return SpawnEnemy();
+        Vector3 spawnPos = GetSpawnPos(mapGenerator.currentMap.GetRandomOpenTileCoord()) * mapGenerator.mapUnitSize;
+        return SpawnEnemy(spawnPos);
     }
+
 }

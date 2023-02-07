@@ -9,6 +9,7 @@ public class MonsterData : ScriptableObject
     private MonsterType type;
 
 
+
 }
 
 

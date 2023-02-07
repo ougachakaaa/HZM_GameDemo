@@ -20,22 +20,19 @@ public class MapEditor : Editor
         base.OnInspectorGUI();
         MapGenerator mapGenerator = target as MapGenerator;
 
-        GUILayout.Space(15);
+        GUILayout.Space(10);
 
         EditorGUILayout.PropertyField(_alwayUpdate);
         GUILayout.BeginHorizontal();
         bool generateMap = GUILayout.Button("Genrate Map");
         //GUILayout.Toggle(false,"Alway Update");
-        if (_alwayUpdate.boolValue || generateMap)
+        if ((_alwayUpdate.boolValue) || generateMap)
         {
-            mapGenerator.GenerateMap();
+            mapGenerator.GenerateMap(0);
         }
         GUILayout.EndHorizontal();
 
         serializedObject.ApplyModifiedProperties();
     }
-    void CheckForParameterChange()
-    {
 
-    }
 }

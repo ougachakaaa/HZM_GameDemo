@@ -1,24 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ControllList : MonoBehaviour
 {
-    public Transform canvasTransform;
+    public Transform panelsHolderTransform;
+    public static Transform backGroundBlocker;
     public Button thisButton;
-    public UIPanel thisPanel;
+    public NavPanel navPanel;
     public List<GameObject> controllPanels;
     public List<GameObject> activePanels;
 
     private void Awake()
     {
-        canvasTransform = GameObject.Find("Panels").transform;
+        panelsHolderTransform = GameObject.Find("Panels").transform;
+        backGroundBlocker = GameObject.Find("BackgroundBlocker").transform;
         thisButton = GetComponent<Button>();
-        thisPanel = GetComponentInParent<UIPanel>();
+        navPanel = GetComponentInParent<NavPanel>();
 
         thisButton.onClick.AddListener(()=> {
-            thisPanel.HideAllPanels(this);
+            navPanel.HideAllPanels(this);
             ShowPanels();
         });
     }
@@ -32,7 +33,7 @@ public class ControllList : MonoBehaviour
 
             if (activePanels.Count < controllPanels.Count)
             {
-                activePanels.Add(GameObject.Instantiate(_panel, canvasTransform));
+                activePanels.Add(GameObject.Instantiate(_panel, panelsHolderTransform));
             }
             else
             {
@@ -45,9 +46,18 @@ public class ControllList : MonoBehaviour
     }
     public void HidePanels()
     {
+        HideBackground();
         foreach (GameObject _panel in activePanels)
         {
             _panel.SetActive(false);
+        }
+    }
+
+    public void HideBackground()
+    {
+        if (backGroundBlocker != null && !backGroundBlocker.gameObject.activeSelf)
+        {
+            backGroundBlocker.gameObject.SetActive(true);
         }
     }
 
