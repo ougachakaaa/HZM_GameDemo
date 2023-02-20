@@ -136,6 +136,7 @@ MonoBehaviour:
   maxHp: 100
   defensePoint: 10
   attackPoint: 20
+  MaxLiveTime: 30
   playerTransform: {fileID: 0}
   updateTargetRate: 0.1
   attackDistanceThreshold: 1
@@ -295,7 +296,7 @@ Transform:
   m_GameObject: {fileID: 6229448699164991578}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1479970706891489201}

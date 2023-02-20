@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9c61bae8e15fb40a259e0a653f8d6b, type: 3}
+  m_Name: Map 2
+  m_EditorClassIdentifier: 
+  mapName: Level
+  mapIndex: 2
+  mapSize: {x: 8, y: 8}
+  maxObstacleHeight: 1
+  minObstacleHeight: 0.5
+  obstacleHeightStep: 3
+  obsForegroundColor: {r: 0.9056604, g: 0.47419012, b: 0.72016734, a: 1}
+  obsBackgroundColor: {r: 0.8207547, g: 0.17421682, b: 0.54450667, a: 1}
+  obstacleSeed: 1
+  shuffleSeed: 1
+  minimunOpenTileCount: 12

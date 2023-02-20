@@ -107,15 +107,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8821675017590524510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 384b1edbdb2ab414ca94fe4821db2730, type: 3}
+  m_Script: {fileID: 11500000, guid: 4057970ea82086047b1f96fd89c5da66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRotating: 1
-  rotateSpeed: 180
-  isFloating: 1
-  floatSpeed: 0.5
-  floatRange: 0.2
+  collectionType: 0
+  isRotating: 0
+  rotateSpeed: 80
+  isFloating: 0
+  floatSpeed: 0.6
+  floatRange: 0.3
   isCollected: 0
-  flyDistance: 2
-  flyToDuration: 0.3
-  flyAwayDurtion: 0.15
+  flyDistance: 1.8
+  flyToDuration: 0.2
+  flyAwayDurtion: 0.1
+  VFX: {fileID: 1068419323181306472, guid: 01a05fbc807cb3a4ba5ebd1c11a45c05, type: 3}
+  collectionManager: {fileID: 0}
+  coinID: 0
+  coinValue: 1

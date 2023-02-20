@@ -54,9 +54,7 @@ MonoBehaviour:
   - {fileID: 268658411519473550, guid: 87e4230ec61da004e86a6c19da495ef0, type: 3}
   - {fileID: 268658411519473550, guid: 87e4230ec61da004e86a6c19da495ef0, type: 3}
   - {fileID: 268658411519473550, guid: 87e4230ec61da004e86a6c19da495ef0, type: 3}
-  - {fileID: 268658411519473550, guid: 87e4230ec61da004e86a6c19da495ef0, type: 3}
   panelPrefabs:
-  - {fileID: 8264352071309337200, guid: 70596eafc07a63c44a0a50da2a8081a4, type: 3}
   - {fileID: 8264352071309337200, guid: 70596eafc07a63c44a0a50da2a8081a4, type: 3}
   - {fileID: 8264352071309337200, guid: 70596eafc07a63c44a0a50da2a8081a4, type: 3}
   - {fileID: 8264352071309337200, guid: 70596eafc07a63c44a0a50da2a8081a4, type: 3}

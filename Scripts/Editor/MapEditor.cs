@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MapGenerator))]
+[CustomEditor(typeof(MapManager))]
 public class MapEditor : Editor
 {
     private SerializedProperty _alwayUpdate;
@@ -18,7 +18,7 @@ public class MapEditor : Editor
         //serializedObject.UpdateIfRequiredOrScript();
 
         base.OnInspectorGUI();
-        MapGenerator mapGenerator = target as MapGenerator;
+        MapManager mapManager = target as MapManager;
 
         GUILayout.Space(10);
 
@@ -28,7 +28,8 @@ public class MapEditor : Editor
         //GUILayout.Toggle(false,"Alway Update");
         if ((_alwayUpdate.boolValue) || generateMap)
         {
-            mapGenerator.GenerateMap(0);
+            mapManager.InitializeMapManager(0);
+            mapManager.GenerateMap();
         }
         GUILayout.EndHorizontal();
 

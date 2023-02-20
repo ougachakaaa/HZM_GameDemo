@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c086bdff541fbd04fbdc17e6dc5f9e5e, type: 3}
+  m_Name: Open-Obstacle
+  m_EditorClassIdentifier: 
+  executor: 0
+  targetType: 2
+  originType: 1
+  targetPrefab: {fileID: 3060420907382103848, guid: be59cef916a113c44ba0360b80e3bcd6,
+    type: 3}
+  targetMesh: {fileID: 0}
+  targetCollider: {fileID: 0}
+  effectColor: {r: 0.735849, g: 0.25338197, b: 0.48724467, a: 0.30588236}
+  isEnabled: 1
+  isLooping: 0
+  _executeDuration: 3
+  flashTimes: 2
+  effectLastTime: 4
+  density: 0.3

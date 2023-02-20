@@ -8,8 +8,12 @@ using UnityEngine.InputSystem;
  */
 public enum PlayerState
 {
-    Moving,
+    Move,
+    Dash,
     UnderAttack,
+    Aim,
+    WallRun,
+    
 }
 namespace StarterAssets
 {
@@ -115,10 +119,9 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-        private MowingController _mowingController;
-        public PlayerState playerCurrenState;
+        public PlayerCharacterController _playerCharactorController;
+        [SerializeField] PlayerState playerCurrenState;
         Vector3 knockBackVelocity;
-        bool isKnocked;
 
         private const float _threshold = 0.01f;
 
@@ -144,7 +147,6 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
-            //Actions.OnPlayerAttacked += OnKnockBack();
         }
 
         private void Start()
@@ -154,7 +156,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
-            _mowingController = GetComponent<MowingController>();
+            _playerCharactorController = GetComponent<PlayerCharacterController>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -167,9 +169,7 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
 
-            SetPlayerState(PlayerState.Moving);
-            Actions.OnPlayerAttacked += SetPlayerState;
-            Actions.OnKnockBack += KnockBack;
+            playerCurrenState = PlayerState.Move;
         }
 
         private void Update()
@@ -177,11 +177,12 @@ namespace StarterAssets
             if (!_input.pause && !Actions.IsPlayerDead)
             {
                 _hasAnimator = TryGetComponent(out _animator);
-
-                Move();
+                if (playerCurrenState == PlayerState.Move)
+                {
+                    Move();
+                }
                 JumpAndGravity();
                 GroundedCheck();
-
             }
         }
 
@@ -190,7 +191,6 @@ namespace StarterAssets
             if (!_input.pause)
             {
                 CameraRotation();
-
             }
         }
 
@@ -250,7 +250,8 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero) 
+                targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -283,14 +284,14 @@ namespace StarterAssets
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero && playerCurrenState == PlayerState.Moving)
+            if (_input.move != Vector2.zero)
             {
-
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                       _mainCamera.transform.eulerAngles.y;
+
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
-                if(_mowingController != null && !_input.aim)
+                if(_playerCharactorController != null && !_input.aim)
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
                 // rotate to face input direction relative to camera position
             }
@@ -309,6 +310,7 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
+
 
         private void JumpAndGravity()
         {
@@ -424,37 +426,9 @@ namespace StarterAssets
             }
         }
 
-        PlayerState SetPlayerState(PlayerState state)
+        public void SetCharacterState(PlayerState state)
         {
-            PlayerState lastState = playerCurrenState;
-            _speed = 0;
-            _animationBlend = 0;
             playerCurrenState = state;
-            return lastState;
-        }
-
-        IEnumerator knockBackCoroutine;
-        public void KnockBack(Vector3 _velocity)
-        {
-            knockBackCoroutine = AddKnockBackVelocity(_velocity);
-            StartCoroutine(knockBackCoroutine);
-        }
-
-        IEnumerator AddKnockBackVelocity(Vector3 _velocity)
-        {
-            //Vector3 multiKnockVelocity = knockBackVelocity + _velocity;
-            knockBackVelocity += _velocity;
-            int lerpTime = 50;
-            float sharpness = 1/lerpTime;
-            //WaitForSeconds interval = new WaitForSeconds( 0.5f / lerpTime);
-
-            for (int i = 0; i <= lerpTime; i++)
-            {
-                knockBackVelocity = Vector3.Lerp(knockBackVelocity, Vector3.zero, 0.1f);
-                Debug.Log(knockBackVelocity.magnitude);
-                yield return null;
-            }
-            Debug.Log("------------------------------------");
         }
 
     }

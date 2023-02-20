@@ -46,21 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: abc
   weaponID: 0
-  damageFactor: 1
+  damageFactor: 10
   damage: 0
   projectilePrefabs: {fileID: 6394646248244751695, guid: 764fce0d714e98043808912a6191cc14,
     type: 3}
-  speed: 0.5
+  speed: 30
   existingTime: 3
   maxCollideCount: 1
   trajectory: 0
-  projectilePerRound: 3
+  projectilePerRound: 1
   fireDuration: 0.1
-  roundDuration: 1
+  roundDuration: 0.8
   muzzleHeight: 1.5
-  _spawner: {fileID: 0}
-  _player: {fileID: 0}
+  _playerMowingController: {fileID: 0}
+  _playerLivingEntity: {fileID: 0}
   muzzleIndicator: {fileID: 0}
-  projectilePool: {fileID: 0}
   debugProject: {fileID: 0}
   debugTarget: {fileID: 0}

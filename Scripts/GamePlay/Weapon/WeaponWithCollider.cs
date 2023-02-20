@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponWithCollider : MonoBehaviour
 {
-    public MowingController _controller;
+    public PlayerCharacterController _controller;
     public PlayerLivingEntity _playerLivingEntity;
 
     [Header("Weapon Info")]

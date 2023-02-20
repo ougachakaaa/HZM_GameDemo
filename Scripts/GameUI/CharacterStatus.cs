@@ -12,17 +12,22 @@ public class CharacterStatus : MonoBehaviour
 
     public int coinCollectedCount;
     [SerializeField] TextMeshProUGUI coinCollectedText;
+    
+    public float enemySpawnRate;
+    [SerializeField] TextMeshProUGUI enemySpawnRateText;
 
 
     private void OnEnable()
     {
-        Actions.OnEnemyDie += EnemyCountIncrese;
-        Actions.OnLootCollected += CoinCollectedIncrese;
+        Actions.OnEnemyDie += EnemyCountIncrease;
+        Actions.OnCollected += CoinCollected;
+        Actions.OnEnemySpawnRateIncrease += EnemySpawnRateIncrease;
     }
     private void OnDisable()
     {
-        Actions.OnEnemyDie -= EnemyCountIncrese;
-        Actions.OnLootCollected += CoinCollectedIncrese;
+        Actions.OnEnemyDie -= EnemyCountIncrease;
+        Actions.OnCollected -= CoinCollected;
+        Actions.OnEnemySpawnRateIncrease -= EnemySpawnRateIncrease;
     }
     // Start is called before the first frame update
     void Start()
@@ -33,16 +38,24 @@ public class CharacterStatus : MonoBehaviour
 
     // Update is called once per frame
 
-    void EnemyCountIncrese(EnemyController _enemyController)
+    void EnemyCountIncrease(EnemyController _enemyController)
     {
         enemyKilledCount++;
         enemyKilledText.text = enemyKilledCount.ToString();
     }
 
-    public void CoinCollectedIncrese(Loot loot)
+    public void CoinCollected(Collection c)
     {
-        coinCollectedCount++;
-        coinCollectedText.text = coinCollectedCount.ToString();
+        if (c is CoinCollection)
+        {
+            coinCollectedCount += (c as CoinCollection).coinValue;
+            coinCollectedText.text = coinCollectedCount.ToString();
+        }
+    }
+    public void EnemySpawnRateIncrease(float rate)
+    {
+        enemySpawnRate = rate;
+        enemySpawnRateText.text = $"Enemy: {enemySpawnRate:F1}/S";
     }
 
 }

@@ -135,9 +135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd497c8811cd2b478d296e8a7d5afb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardPrefab: {fileID: 8264352071309337201, guid: 70596eafc07a63c44a0a50da2a8081a4,
-    type: 3}
-  circleMark: {fileID: 0}
+  routinePanelHolder: {fileID: 0}
+  buttonPrefabs: []
+  panelPrefabs: []
   popoutTime: 0.3
 --- !u!1001 &4881533986609511438
 PrefabInstance:

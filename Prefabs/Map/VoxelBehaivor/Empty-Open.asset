@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c086bdff541fbd04fbdc17e6dc5f9e5e, type: 3}
+  m_Name: Empty-Open
+  m_EditorClassIdentifier: 
+  executor: 0
+  targetType: 1
+  originType: 0
+  targetPrefab: {fileID: 8317196705860184139, guid: 347703bfa33514b458ecc549daf676d8,
+    type: 3}
+  targetMesh: {fileID: 0}
+  targetCollider: {fileID: 0}
+  effectColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}
+  isEnabled: 1
+  isLooping: 0
+  _executeDuration: 3
+  flashTimes: 2
+  effectLastTime: 2
+  density: 0.3

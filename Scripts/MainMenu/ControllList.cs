@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class ControllList : MonoBehaviour
 {
-    public Transform panelsHolderTransform;
-    public static Transform backGroundBlocker;
-    public Button thisButton;
+    Transform panelsHolderTransform;
+    public Transform backGroundBlocker;
+    Button thisButton;
     public NavPanel navPanel;
     public List<GameObject> controllPanels;
     public List<GameObject> activePanels;
@@ -14,7 +14,7 @@ public class ControllList : MonoBehaviour
     private void Awake()
     {
         panelsHolderTransform = GameObject.Find("Panels").transform;
-        backGroundBlocker = GameObject.Find("BackgroundBlocker").transform;
+        //backGroundBlocker = GameObject.Find("BackgroundBlocker").transform;
         thisButton = GetComponent<Button>();
         navPanel = GetComponentInParent<NavPanel>();
 
@@ -22,9 +22,8 @@ public class ControllList : MonoBehaviour
             navPanel.HideAllPanels(this);
             ShowPanels();
         });
+
     }
-
-
     
     public void ShowPanels()
     {
@@ -33,7 +32,9 @@ public class ControllList : MonoBehaviour
 
             if (activePanels.Count < controllPanels.Count)
             {
-                activePanels.Add(GameObject.Instantiate(_panel, panelsHolderTransform));
+                GameObject p = Instantiate(_panel, panelsHolderTransform);
+                p.name = _panel.name;
+                activePanels.Add(p);
             }
             else
             {

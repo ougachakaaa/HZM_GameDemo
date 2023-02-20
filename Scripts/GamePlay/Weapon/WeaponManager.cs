@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public List<WeaponBase> weapons;
+    public List<Weapon> weapons;
     // Start is called before the first frame update
     void Start()
     {

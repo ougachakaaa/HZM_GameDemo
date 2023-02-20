@@ -44,12 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e03721fdc718d449eda2773d72e224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: {fileID: 1479970706891489200, guid: 2fd5091f8cf54f84a984003e47814085,
-    type: 3}
-  spawnCenter: {fileID: 0}
+  PlayerTransform: {fileID: 0}
+  _input: {fileID: 0}
+  mapManager: {fileID: 0}
+  enemyPrefabs:
+  - {fileID: 1479970706891489200, guid: 2fd5091f8cf54f84a984003e47814085, type: 3}
+  enemyHolder: {fileID: 0}
   innerSpawnRange: 10
   outterSpawnRange: 20
-  _input: {fileID: 0}
-  spawnRate: 20
-  enmeyList: []
-  currentEnemyCount: 0
+  initialSpawnRate: 0.5
+  spawnRateStep: 0.25
+  spawnRateIncreaseDurantion: 20
+  spawnRate: 1
+  spawnEffectColor: {r: 0.8113208, g: 0, b: 0, a: 0.34901962}
+  spawnCheckLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  activeEnemyList: []
+  MaxEnemyCount: 40
+  enemyPrefab: {fileID: 1981450912632967729, guid: 2fd5091f8cf54f84a984003e47814085,
+    type: 3}
+  defaultCapacity: 30
+  maxSize: 50

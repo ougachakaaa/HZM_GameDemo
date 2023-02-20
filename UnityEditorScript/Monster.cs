@@ -16,7 +16,7 @@ public class Monster : MonoBehaviour
     private string _name;
 
     [SerializeField]
-    private MonsterType _monsterTpye;
+    private MonsterType _monsterType;
     [SerializeField]
     private int _age;
     [SerializeField]
@@ -33,7 +33,7 @@ public class Monster : MonoBehaviour
 
 
     public string Name => _name;
-    public MonsterType ThisType => _monsterTpye;
+    public MonsterType ThisType => _monsterType;
     public int Age => _age;
     public float Health => _health;
     public float Damage => _damage;

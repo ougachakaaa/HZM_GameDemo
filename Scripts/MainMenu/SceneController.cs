@@ -29,9 +29,12 @@ public class SceneController : MonoBehaviour
     [SerializeField] float transitionTimeOffset = 0.1f;
     public float transitionSmoothness = 50;
 
+    LevelParamHolder levelParam;
+
 
     private void Start()
     {
+        levelParam = LevelParamHolder.Instance;
         image = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
         if (SceneManager.sceneCount == 0)
@@ -57,6 +60,7 @@ public class SceneController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
             case SceneList.MainMenu :
+                levelParam.ResetParamToMainMenu();
                 backGround = Instantiate(backGroundPrefab, panelsHolderTransform);
                 backGround.transform.SetAsFirstSibling();
                 Cursor.lockState = CursorLockMode.None;

@@ -6,7 +6,7 @@ using TMPro;
 
 public class HpBar : MonoBehaviour
 {
-    LivingEntity livingEntity;
+    PlayerLivingEntity _playerLivingEntity;
     TextMeshProUGUI hpText;
     Image hpFill;
 
@@ -15,16 +15,15 @@ public class HpBar : MonoBehaviour
     {
         hpFill = transform.Find("HpFill").GetComponent<Image>();
         hpText = transform.Find("HpText").GetComponent<TextMeshProUGUI>();
-        livingEntity = FindObjectOfType<PlayerLivingEntity>();
-
+        _playerLivingEntity = FindObjectOfType<PlayerLivingEntity>();
     }
 
     // Update is called once per frame
     public void UpdateHpBar()
     {
         //update hpfill
-        hpFill.fillAmount = livingEntity.CurrentHp / livingEntity.maxHp;
-        hpText.text = livingEntity.CurrentHp.ToString() + "//" + livingEntity.maxHp.ToString();
+        hpFill.fillAmount = (float)_playerLivingEntity.CurrentHp / _playerLivingEntity.maxHp;
+        hpText.text = _playerLivingEntity.CurrentHp.ToString() + "/" + _playerLivingEntity.maxHp.ToString();
     }
 
 

@@ -23,7 +23,6 @@ public class GameUIManager : MonoBehaviour
     bool isQuit;
 
     //gameover
-
     CharacterStatus characterStatus;
     Timer timer;
     Transform gameoverPanel;
@@ -32,7 +31,18 @@ public class GameUIManager : MonoBehaviour
     TextMeshProUGUI gameoverTimeText;
     TextMeshProUGUI gameoverEnemyKilledText;
 
-    
+    //levelUp
+    bool levelUpPause;
+    public Transform levelUpPanel;
+    [SerializeField] TextMeshProUGUI ATK;
+    [SerializeField] TextMeshProUGUI DEF;
+    [SerializeField] TextMeshProUGUI GunLevel;
+    [SerializeField] TextMeshProUGUI AutoAimLevel;
+
+    [SerializeField] Weapon _gun;
+    [SerializeField] Weapon _autoAim;
+
+
 
     private void OnEnable()
     {
@@ -47,9 +57,9 @@ public class GameUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         _input = playerTransform.GetComponent<StarterAssetsInputs>();
         playerLivingEntity = playerTransform.GetComponent<PlayerLivingEntity>();
+        //levelUpPanel = FindObjectOfType<LevelUpManager>();
 
         canvas = GameObject.Find("Canvas").transform;
         sceneController = Instantiate<SceneController>(sceneController,canvas);
@@ -62,13 +72,16 @@ public class GameUIManager : MonoBehaviour
         gameoverPanel = canvas.Find("GameoverPanel");
         GameoverInit(gameoverPanel);
 
+        Actions.OnLevelUp += CallLevelUpPanel;
+
+        UpgradePlayerProperty();
 
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (!playerLivingEntity.isDead)
+        if (!Actions.IsPlayerDead)
         {
             PauseCheck();
         }
@@ -81,7 +94,7 @@ public class GameUIManager : MonoBehaviour
     void PauseCheck()
     {
 
-        if (_input.pause)
+        if (_input.pause || levelUpPause)
         {
             Cursor.lockState = CursorLockMode.None;
             pausePanel.gameObject.SetActive(true);
@@ -135,11 +148,32 @@ public class GameUIManager : MonoBehaviour
     }
     void Gameover()
     {
-        Cursor.lockState = CursorLockMode.None;
         timer.isTimerRunning = false;
         gameoverPanel.gameObject.SetActive(true);
-        gameoverTimeText.text = timer.FormatTime();
+        gameoverTimeText.text = timer.timerText.text;
         gameoverEnemyKilledText.text = characterStatus.enemyKilledCount.ToString();
 
     }
+
+
+    public void CallLevelUpPanel()
+    {
+        if (levelUpPanel !=null)
+        {
+            levelUpPanel.gameObject.SetActive(true);
+            levelUpPause = true;
+
+        }
+    }
+    public void UpgradePlayerProperty()
+    {
+
+        levelUpPanel.gameObject.SetActive(false);
+        levelUpPause = false;
+        ATK.text = $"ATK:{playerLivingEntity.attackPoint}";
+        DEF.text = $"DEF:{playerLivingEntity.defensePoint}";
+        GunLevel.text = $"Gun:Lv.{_gun.currentLevel}";
+        AutoAimLevel.text = $"Auto:Lv.{_autoAim.currentLevel}";
+    }
 }
+

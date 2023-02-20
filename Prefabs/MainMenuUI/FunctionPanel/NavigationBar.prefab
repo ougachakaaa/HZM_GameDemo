@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -147,8 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde88a579217ad147918a2e0fc5df230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelsHolderTransform: {fileID: 0}
-  thisButton: {fileID: 0}
+  backGroundBlocker: {fileID: 0}
   navPanel: {fileID: 0}
   controllPanels:
   - {fileID: 3962670798315370221, guid: b4f01c6a8c58261439958091c940aaeb, type: 3}
@@ -382,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -425,8 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde88a579217ad147918a2e0fc5df230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelsHolderTransform: {fileID: 0}
-  thisButton: {fileID: 0}
+  backGroundBlocker: {fileID: 0}
   navPanel: {fileID: 0}
   controllPanels:
   - {fileID: 907750557472946396, guid: 9481f716f9054a848a7bdf22e02818f0, type: 3}
@@ -523,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -566,8 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde88a579217ad147918a2e0fc5df230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelsHolderTransform: {fileID: 0}
-  thisButton: {fileID: 0}
+  backGroundBlocker: {fileID: 0}
   navPanel: {fileID: 0}
   controllPanels:
   - {fileID: 907750557472946396, guid: 9481f716f9054a848a7bdf22e02818f0, type: 3}
@@ -1259,7 +1256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1302,8 +1299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde88a579217ad147918a2e0fc5df230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelsHolderTransform: {fileID: 0}
-  thisButton: {fileID: 0}
+  backGroundBlocker: {fileID: 0}
   navPanel: {fileID: 0}
   controllPanels:
   - {fileID: 907750557472946396, guid: 9481f716f9054a848a7bdf22e02818f0, type: 3}
@@ -1400,7 +1396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1443,8 +1439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde88a579217ad147918a2e0fc5df230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelsHolderTransform: {fileID: 0}
-  thisButton: {fileID: 0}
+  backGroundBlocker: {fileID: 0}
   navPanel: {fileID: 0}
   controllPanels:
   - {fileID: 8187598516789958988, guid: 1ee483a6f5613ce47a7f045ecadf129a, type: 3}
